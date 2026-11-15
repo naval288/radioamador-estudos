@@ -1,0 +1,82 @@
+{
+  "title": "COER na Prática",
+  "subtitle": "Podcast de perguntas e respostas para o COER Classe C",
+  "voices": {
+    "ANA": "Thalita (pt-BR)",
+    "MARCOS": "Antonio (pt-BR)"
+  },
+  "tracks": [
+    {
+      "id": "completo",
+      "number": "▶",
+      "title": "Podcast completo",
+      "description": "Abertura, seis episódios, bônus e fechamento em uma única faixa.",
+      "file": "audio/podcast-completo.mp3",
+      "duration": "39:46",
+      "seconds": 2385.7
+    },
+    {
+      "id": "ep01",
+      "number": "01",
+      "title": "O que a Anatel realmente cobra",
+      "description": "Legislação — conceitos e situações de prova.",
+      "file": "audio/episodio-01.mp3",
+      "duration": "6:12",
+      "seconds": 371.6
+    },
+    {
+      "id": "ep02",
+      "number": "02",
+      "title": "Regras de operação sem pegadinhas",
+      "description": "Legislação + Ética — operação no dia a dia.",
+      "file": "audio/episodio-02.mp3",
+      "duration": "5:57",
+      "seconds": 356.7
+    },
+    {
+      "id": "ep03",
+      "number": "03",
+      "title": "O rádio por dentro e as comunicações",
+      "description": "Técnica e Ética — estação, modos e comunicações.",
+      "file": "audio/episodio-03.mp3",
+      "duration": "5:42",
+      "seconds": 341.5
+    },
+    {
+      "id": "ep04",
+      "number": "04",
+      "title": "Antenas, alcance e interferência",
+      "description": "Técnica e Ética — antenas, propagação e interferência.",
+      "file": "audio/episodio-04.mp3",
+      "duration": "5:49",
+      "seconds": 348.7
+    },
+    {
+      "id": "ep05",
+      "number": "05",
+      "title": "Código Q, chamada e situações reais",
+      "description": "Técnica e Ética — Código Q, chamada e emergência.",
+      "file": "audio/episodio-05.mp3",
+      "duration": "5:22",
+      "seconds": 321.8
+    },
+    {
+      "id": "ep06",
+      "number": "06",
+      "title": "Revisão acelerada no estilo da prova",
+      "description": "Misto — revisão rápida dos pontos principais.",
+      "file": "audio/episodio-06.mp3",
+      "duration": "5:29",
+      "seconds": 328.8
+    },
+    {
+      "id": "bonus",
+      "number": "B",
+      "title": "Simulado auditivo de 12 itens",
+      "description": "Responda de ouvido com pausas de 7 segundos e confira o gabarito comentado.",
+      "file": "audio/bonus-simulado.mp3",
+      "duration": "4:13",
+      "seconds": 253.5
+    }
+  ]
+}

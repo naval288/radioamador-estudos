@@ -52,7 +52,7 @@ const LESSONS = [
               <tbody>
                 <tr><td>Lei nº 9.472/1997 (LGT)</td><td>Organização e fiscalização das telecomunicações no Brasil.</td></tr>
                 <tr><td>Resolução Anatel nº 777/2025 (RGST)</td><td>Regras gerais dos serviços de telecomunicações.</td></tr>
-                <tr><td>Ato Anatel nº 3448/2026</td><td>Operação, indicativos, qualificação, formato das provas e isenções.</td></tr>
+                <tr><td>Ato Anatel nº 3448/2026</td><td>Operação, indicativos, qualificação e formato das provas.</td></tr>
                 <tr><td>Ato Anatel nº 926/2024</td><td>Requisitos técnicos, frequências, modalidades e potências do radioamador.</td></tr>
                 <tr><td>Resolução nº 772/2025 (PDFF)</td><td>Atribuição, destinação e distribuição do espectro.</td></tr>
                 <tr><td>Resolução nº 715/2019</td><td>Avaliação da conformidade e homologação de produtos.</td></tr>
@@ -914,7 +914,7 @@ const SOURCES = [
     id: 1,
     kicker: "Oficial",
     title: "Anatel — Ato nº 3448/2026",
-    note: "Texto e ementa oficiais: operação, indicativos, qualificação, formato das provas e isenções.",
+    note: "Texto e ementa oficiais: operação, indicativos, qualificação e formato das provas.",
     url: "https://informacoes.anatel.gov.br/legislacao/atos-de-requisitos-operacionais-de-outorga-e-licenciamento/2148-ato-3448-26"
   },
   {
@@ -969,6 +969,77 @@ const SOURCES = [
 ];
 
 /* ============================================================
+   Podcast — faixas geradas com Edge TTS
+   ============================================================ */
+
+const PODCAST = [
+  {
+    id: "completo",
+    number: "▶",
+    title: "Podcast completo",
+    description: "Abertura, seis episódios, bônus e fechamento em uma única faixa.",
+    file: "audio/podcast-completo.mp3",
+    duration: "39:46"
+  },
+  {
+    id: "ep01",
+    number: "01",
+    title: "O que a Anatel realmente cobra",
+    description: "Legislação — conceitos e situações de prova.",
+    file: "audio/episodio-01.mp3",
+    duration: "6:12"
+  },
+  {
+    id: "ep02",
+    number: "02",
+    title: "Regras de operação sem pegadinhas",
+    description: "Legislação + Ética — operação no dia a dia.",
+    file: "audio/episodio-02.mp3",
+    duration: "5:57"
+  },
+  {
+    id: "ep03",
+    number: "03",
+    title: "O rádio por dentro e as comunicações",
+    description: "Técnica e Ética — estação, modos e comunicações.",
+    file: "audio/episodio-03.mp3",
+    duration: "5:42"
+  },
+  {
+    id: "ep04",
+    number: "04",
+    title: "Antenas, alcance e interferência",
+    description: "Técnica e Ética — antenas, propagação e interferência.",
+    file: "audio/episodio-04.mp3",
+    duration: "5:49"
+  },
+  {
+    id: "ep05",
+    number: "05",
+    title: "Código Q, chamada e situações reais",
+    description: "Técnica e Ética — Código Q, chamada e emergência.",
+    file: "audio/episodio-05.mp3",
+    duration: "5:22"
+  },
+  {
+    id: "ep06",
+    number: "06",
+    title: "Revisão acelerada no estilo da prova",
+    description: "Misto — revisão rápida dos pontos principais.",
+    file: "audio/episodio-06.mp3",
+    duration: "5:29"
+  },
+  {
+    id: "bonus",
+    number: "B",
+    title: "Simulado auditivo de 12 itens",
+    description: "Responda de ouvido com pausas de 7 segundos e confira o gabarito comentado.",
+    file: "audio/bonus-simulado.mp3",
+    duration: "4:13"
+  }
+];
+
+/* ============================================================
    Estado, persistência e utilitários
    ============================================================ */
 
@@ -994,6 +1065,7 @@ function createDefaultState() {
       A: createExamBlock(),
       B: createExamBlock()
     },
+    podcastIndex: 0,
     lastView: "inicio"
   };
 }
@@ -1026,6 +1098,9 @@ function loadState() {
     }
 
     if (parsed.lastView) next.lastView = parsed.lastView;
+    if (Number.isInteger(parsed.podcastIndex) && parsed.podcastIndex >= 0 && parsed.podcastIndex < PODCAST.length) {
+      next.podcastIndex = parsed.podcastIndex;
+    }
     return next;
   } catch (error) {
     return createDefaultState();
@@ -1068,7 +1143,7 @@ function lessonTitle(id) {
 function currentView() {
   const raw = decodeURIComponent(location.hash.replace(/^#\/?/, ""));
   if (!raw) return "inicio";
-  if (raw === "inicio" || raw === "simulado" || raw === "fontes") return raw;
+  if (raw === "inicio" || raw === "simulado" || raw === "fontes" || raw === "podcast") return raw;
   if (/^aula-[1-7]$/.test(raw) && lessonById(raw)) return raw;
   if (/^simulado-[AB]$/.test(raw)) return raw;
   return "inicio";
@@ -1108,6 +1183,12 @@ function renderSidebar(active) {
     html += '<span class="nav-copy"><span class="nav-title">' + lesson.title + (isDone ? '<span class="nav-check" aria-hidden="true">✓</span>' : "") + '</span><span class="nav-part">' + lesson.part + '</span></span>';
     html += '</button>';
   });
+
+  html += '<p class="nav-label">Áudio</p>';
+  const podcastActive = active === "podcast";
+  html += '<button class="nav-item ' + (podcastActive ? "active" : "") + '" type="button" data-view="podcast" ' + (podcastActive ? 'aria-current="page"' : "") + '>';
+  html += '<span class="nav-num">▶</span><span class="nav-copy"><span class="nav-title">Podcast COER na Prática</span><span class="nav-part">6 episódios + bônus</span></span>';
+  html += '</button>';
 
   html += '<p class="nav-label">Avaliação</p>';
   const examActive = active === "simulado" || active.indexOf("simulado-") === 0;
@@ -1175,6 +1256,125 @@ function renderSourcesPage() {
 }
 
 /* ============================================================
+   Podcast
+   ============================================================ */
+
+function renderPodcastTrack(track, index) {
+  const isActive = index === (Number(state.podcastIndex) || 0);
+  return (
+    '<button class="podcast-track ' + (isActive ? "is-active" : "") + '" type="button" data-action="podcast-track" data-index="' + index + '">' +
+      '<span class="podcast-track-no">' + track.number + '</span>' +
+      '<span class="podcast-track-copy"><strong>' + track.title + '</strong><span>' + track.description + '</span></span>' +
+      '<span class="podcast-track-duration">' + track.duration + '</span>' +
+      '<span class="podcast-track-play" aria-hidden="true">▶</span>' +
+    '</button>'
+  );
+}
+
+function renderPodcast() {
+  const index = Math.min(Math.max(Number(state.podcastIndex) || 0, 0), PODCAST.length - 1);
+  const active = PODCAST[index] || PODCAST[0];
+
+  return (
+    '<section class="podcast-page">' +
+      '<header class="podcast-head">' +
+        '<p class="eyebrow">Podcast · Perguntas e respostas</p>' +
+        '<h1>COER <em>na Prática</em></h1>' +
+        '<p class="podcast-lead">Ana pergunta, Marcos explica e você responde mentalmente durante as pausas. Seis episódios cobrem Legislação, Técnica e Ética; no fim, um simulado auditivo de 12 itens.</p>' +
+        '<div class="meta-row">' +
+          '<span class="meta-chip">2 vozes</span>' +
+          '<span class="meta-chip">6 episódios + bônus</span>' +
+          '<span class="meta-chip">Pausas de 5 e 7 s</span>' +
+          '<span class="meta-chip">Ritmo natural</span>' +
+        '</div>' +
+      '</header>' +
+
+      '<section class="podcast-player-card">' +
+        '<div class="podcast-player-head">' +
+          '<div>' +
+            '<p class="eyebrow">Faixa atual</p>' +
+            '<h2 id="podcast-now-title">' + active.title + '</h2>' +
+            '<p id="podcast-now-desc">' + active.description + '</p>' +
+          '</div>' +
+          '<span class="pill accent" id="podcast-now-duration">' + active.duration + '</span>' +
+        '</div>' +
+        '<audio id="podcast-audio" controls preload="metadata" src="' + active.file + '" aria-label="Player do podcast COER na Prática"></audio>' +
+        '<div class="podcast-player-foot">' +
+          '<span class="podcast-voices">Ana · Thalita <span>|</span> Marcos · Antonio</span>' +
+          '<div class="podcast-player-actions">' +
+            '<a class="btn small" id="podcast-download" href="' + active.file + '" download>Baixar faixa</a>' +
+            '<a class="btn small" href="COER_Podcast_Interativo_Perguntas_e_Respostas_2026.md" download>Baixar roteiro</a>' +
+          '</div>' +
+        '</div>' +
+      '</section>' +
+
+      '<section>' +
+        '<div class="section-head">' +
+          '<h2>Faixas</h2>' +
+          '<p>Comece pelo episódio 1 ou ouça tudo de uma vez. As pausas são propositais: responda antes de ouvir o gabarito.</p>' +
+        '</div>' +
+        '<div class="podcast-track-list">' + PODCAST.map(renderPodcastTrack).join("") + '</div>' +
+      '</section>' +
+
+      '<p class="podcast-note"><strong>Versão 2 · ritmo natural.</strong> Vozes geradas por IA com Edge TTS: Ana (Thalita, pt-BR) e Marcos (Antonio, pt-BR), com tratamento leve de equalização, compressão e nivelamento. Material educacional independente, sem vínculo com a Anatel. As questões do roteiro foram criadas para revisão e não são prova oficial.</p>' +
+    '</section>'
+  );
+}
+
+function updatePodcastUI(index) {
+  const track = PODCAST[index];
+  if (!track) return;
+
+  const title = $("#podcast-now-title");
+  const description = $("#podcast-now-desc");
+  const duration = $("#podcast-now-duration");
+  const download = $("#podcast-download");
+
+  if (title) title.textContent = track.title;
+  if (description) description.textContent = track.description;
+  if (duration) duration.textContent = track.duration;
+  if (download) {
+    download.href = track.file;
+    download.setAttribute("download", "");
+  }
+
+  $$(".podcast-track").forEach(function (button) {
+    button.classList.toggle("is-active", Number(button.dataset.index) === index);
+  });
+}
+
+function setPodcastTrack(index, autoplay, initial) {
+  const track = PODCAST[index];
+  if (!track) return;
+
+  state.podcastIndex = index;
+  saveState();
+  updatePodcastUI(index);
+
+  const audio = $("#podcast-audio");
+  if (!audio) return;
+
+  if (!initial) {
+    audio.src = track.file;
+    audio.load();
+  }
+
+  if (autoplay) {
+    const promise = audio.play();
+    if (promise && typeof promise.catch === "function") {
+      promise.catch(function () { /* o navegador pode bloquear autoplay */ });
+    }
+  }
+}
+
+function initPodcastPlayer() {
+  const audio = $("#podcast-audio");
+  if (!audio) return;
+  const index = Math.min(Math.max(Number(state.podcastIndex) || 0, 0), PODCAST.length - 1);
+  setPodcastTrack(index, false, true);
+}
+
+/* ============================================================
    Visão geral
    ============================================================ */
 
@@ -1206,7 +1406,7 @@ function renderOverview() {
       '<div>' +
         '<p class="eyebrow">Guia de estudos · Atualizado em 15/11/2026</p>' +
         '<h1>COER <em>Classe C</em></h1>' +
-        '<p class="hero-lead">Legislação, técnica e ética operacional em sete aulas curtas — com flashcards, quizzes e um simulado de 30 itens no formato Certo/Errado.</p>' +
+        '<p class="hero-lead">Legislação, técnica e ética operacional em sete aulas curtas — com flashcards, quizzes, simulado e podcast de perguntas e respostas.</p>' +
         '<div class="hero-actions">' +
           '<button class="btn primary" type="button" data-view="aula-1">Começar pela aula 1</button>' +
           '<button class="btn" type="button" data-view="simulado">Ir ao simulado</button>' +
@@ -1244,6 +1444,20 @@ function renderOverview() {
       '<div class="exam-cta-actions">' +
         '<button class="btn accent" type="button" data-view="simulado">Abrir simulado</button>' +
         '<button class="btn" type="button" data-view="fontes">Ver fontes oficiais</button>' +
+      '</div>' +
+    '</section>' +
+    '<section class="podcast-cta">' +
+      '<div class="podcast-cta-art" aria-hidden="true">' +
+        Array.from({ length: 14 }, function () { return "<i></i>"; }).join("") +
+      '</div>' +
+      '<div class="podcast-cta-copy">' +
+        '<p class="eyebrow">Podcast · 2 vozes</p>' +
+        '<h2>COER na Prática</h2>' +
+        '<p>Ana e Marcos revisam o conteúdo em perguntas e respostas, com pausas para você responder antes do gabarito.</p>' +
+      '</div>' +
+      '<div class="podcast-cta-actions">' +
+        '<button class="btn accent" type="button" data-view="podcast">Ouvir podcast</button>' +
+        '<a class="btn" href="COER_Podcast_Interativo_Perguntas_e_Respostas_2026.md" download>Baixar roteiro</a>' +
       '</div>' +
     '</section>' +
     '<section>' +
@@ -1817,6 +2031,10 @@ function renderExamBlock(block) {
    ============================================================ */
 
 function afterRender(view) {
+  if (view === "podcast") {
+    initPodcastPlayer();
+    return;
+  }
   if (view === "simulado-A" || view === "simulado-B") {
     const block = view.slice(-1);
     ensureTimerRunning(block);
@@ -1836,6 +2054,10 @@ function render() {
     html = renderSourcesPage();
     crumb = "Fontes oficiais";
     pageTitle = "Fontes oficiais · COER Classe C";
+  } else if (view === "podcast") {
+    html = renderPodcast();
+    crumb = "Podcast";
+    pageTitle = "Podcast COER na Prática";
   } else if (view === "simulado") {
     html = renderExam();
     crumb = "Simulado";
@@ -2006,6 +2228,11 @@ document.addEventListener("click", function (event) {
   if (!actionButton) return;
 
   const action = actionButton.dataset.action;
+
+  if (action === "podcast-track") {
+    setPodcastTrack(Number(actionButton.dataset.index), true, false);
+    return;
+  }
 
   if (action === "flip-card") {
     const flipped = actionButton.classList.toggle("is-flipped");
