@@ -772,11 +772,6 @@ const LESSONS = [
                 <tr><td>Repetidora — identificação</td><td>Em intervalos de <strong>até 1 hora</strong>.</td></tr>
                 <tr><td>Repetidora — cauda</td><td><strong>Até 5 segundos</strong>.</td></tr>
                 <tr><td>Repetidora — uso continuado</td><td><strong>10 minutos</strong>, com desligamento automático.</td></tr>
-                <tr><td>Crédito de aprovação</td><td><strong>12 meses</strong>.</td></tr>
-                <tr><td>Nova prova após reprovação</td><td>Carência mínima de <strong>8 dias</strong>.</td></tr>
-                <tr><td>Revisão de prova</td><td>Até <strong>60 dias</strong>.</td></tr>
-                <tr><td>Falta injustificada</td><td><strong>30 dias</strong> sem nova inscrição.</td></tr>
-                <tr><td>Isenção CFN-CN</td><td><strong>Eletrônica e Eletricidade</strong>, mediante comprovação e deferimento.</td></tr>
               </tbody>
             </table>
           </div>
@@ -789,12 +784,12 @@ const LESSONS = [
             <table>
               <thead><tr><th class="num">Dia</th><th>Tópico</th><th>Trabalho proposto</th></tr></thead>
               <tbody>
-                <tr><td class="num">1</td><td>Finalidade, Anatel, UIT, IARU, normas</td><td>Ler as aulas 2 e 3; explicar as três autorizações em voz alta.</td></tr>
-                <tr><td class="num">2</td><td>Indicativos, licenças, isenção, limites</td><td>Reler as aulas 1 a 3; criar 10 perguntas próprias.</td></tr>
-                <tr><td class="num">3</td><td>Equipamentos, simplex/duplex, frequências</td><td>Ler a aula 4; desenhar os blocos de receptor e transmissor.</td></tr>
-                <tr><td class="num">4</td><td>Antenas, ROE, SNR, propagação</td><td>Ler as aulas 5 e 6; explicar exemplos de VHF e HF.</td></tr>
-                <tr><td class="num">5</td><td>Chamada, Código Q, alfabeto</td><td>Ler a aula 7; praticar soletração e códigos Q.</td></tr>
-                <tr><td class="num">6</td><td>Ética, repetidoras, emergência</td><td>Reler a aula 7; revisar as regras numéricas.</td></tr>
+                <tr><td class="num">1</td><td>Finalidade, Anatel, UIT, IARU, normas</td><td>Ler as aulas 1 e 2; explicar as três autorizações em voz alta.</td></tr>
+                <tr><td class="num">2</td><td>Indicativos, licenças, limites</td><td>Reler as aulas 1 e 2; criar 10 perguntas próprias.</td></tr>
+                <tr><td class="num">3</td><td>Equipamentos, simplex/duplex, frequências</td><td>Ler a aula 3; desenhar os blocos de receptor e transmissor.</td></tr>
+                <tr><td class="num">4</td><td>Antenas, ROE, SNR, propagação</td><td>Ler as aulas 4 e 5; explicar exemplos de VHF e HF.</td></tr>
+                <tr><td class="num">5</td><td>Chamada, Código Q, alfabeto</td><td>Ler a aula 6; praticar soletração e códigos Q.</td></tr>
+                <tr><td class="num">6</td><td>Ética, repetidoras, emergência</td><td>Reler a aula 6; revisar as regras numéricas.</td></tr>
                 <tr><td class="num">7</td><td>Simulado e revisão de erros</td><td>Resolver os 30 itens em 2 blocos de 20 min; corrigir.</td></tr>
               </tbody>
             </table>
@@ -805,10 +800,10 @@ const LESSONS = [
         title: "Diagnóstico pelos erros",
         html: `
           <ul>
-            <li>Errou questões <strong>2, 7, 8, 9, 11, 12, 13 ou 14</strong>? Revise os itens 4, 5 e 10 do Ato 3448/2026 e a aula 3.</li>
-            <li>Errou questões <strong>18 a 24</strong>? Revise antenas, propagação e interferências nas aulas 4 a 6.</li>
-            <li>Errou questões <strong>25 a 29</strong>? Revise Código Q, ética, CTCSS e repetidoras nas aulas 4 e 7.</li>
-            <li>Errou questões de prazos ou formato? Volte à aula 1 e à tabela de números.</li>
+            <li>Errou questões <strong>2, 7, 8, 9, 11, 12, 13 ou 14</strong>? Revise a aula 2 e os itens 4, 5 e 10 do Ato 3448/2026.</li>
+            <li>Errou questões <strong>18 a 24</strong>? Revise antenas, propagação e interferências nas aulas 3 a 5, além do Código Q na aula 6.</li>
+            <li>Errou questões <strong>25 a 29</strong>? Revise Código Q, ética, CTCSS e repetidoras nas aulas 3 e 6.</li>
+            <li>Errou questões <strong>5, 6 ou 15</strong>? Revise finalidade do serviço, órgãos e obrigações nas aulas 1 e 2.</li>
           </ul>
         `
       },
@@ -829,22 +824,22 @@ const LESSONS = [
     ],
     traps: [
       {
-        myth: "Crédito de aprovação vale 6 meses.",
-        truth: "Vale 12 meses."
+        myth: "A chamada pode ser repetida indefinidamente até alguém responder.",
+        truth: "No máximo três chamadas consecutivas antes de voltar à escuta."
       },
       {
-        myth: "Depois de reprovar, basta esperar 30 dias para tentar de novo.",
-        truth: "A carência mínima é de 8 dias; 30 dias é o caso de falta injustificada."
+        myth: "A transmissão entre estações pode durar 30 minutos.",
+        truth: "A regra é até 10 minutos, exceto emergências."
       },
       {
-        myth: "Revisão de prova e falta injustificada têm o mesmo prazo.",
-        truth: "Revisão: até 60 dias. Falta injustificada: 30 dias sem nova inscrição."
+        myth: "A cauda da repetidora pode durar 30 segundos.",
+        truth: "Até 5 segundos; a identificação é em até 1 hora e o uso continuado, de 10 minutos."
       }
     ],
     flashcards: [
       {
-        front: "Quais são os três números-base da Classe C?",
-        back: "15 questões, 8 acertos mínimos e 20 minutos por matéria."
+        front: "Qual é a relação aproximada entre frequência e comprimento de onda?",
+        back: "λ = 300 / f, com λ em metros e f em MHz."
       },
       {
         front: "Quais são os limites de chamada e de transmissão?",
@@ -857,19 +852,19 @@ const LESSONS = [
     ],
     quiz: [
       {
-        statement: "Os créditos de aprovação por matéria têm validade de 12 meses.",
+        statement: "No simplex típico, as estações alternam transmissão e recepção na mesma frequência.",
         answer: true,
-        explanation: "É o prazo previsto no Ato 3448/2026 para aproveitamento de matérias aprovadas."
+        explanation: "O simplex usa turnos alternados, frequentemente na mesma frequência."
       },
       {
-        statement: "A carência mínima para nova tentativa após reprovação é de 30 dias.",
+        statement: "Uma ROE próxima de 1:1 garante, sozinha, a melhor eficiência de radiação e o maior alcance.",
         answer: false,
-        explanation: "A carência é de 8 dias. Os 30 dias se referem à falta injustificada."
+        explanation: "ROE baixa indica bom casamento no ponto medido, mas não prova eficiência de radiação ou alcance."
       },
       {
-        statement: "A falta injustificada impede nova inscrição por 30 dias.",
+        statement: "A repetidora deve transmitir automaticamente seu indicativo em intervalos de até uma hora.",
         answer: true,
-        explanation: "Esse é o prazo de impedimento previsto para falta injustificada."
+        explanation: "A identificação automática deve ocorrer em intervalos não superiores a uma hora."
       }
     ],
     sourceIds: [1, 2, 8]
